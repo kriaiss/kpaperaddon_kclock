@@ -1,0 +1,18 @@
+{
+    "name": "kpaperaddon kclock",
+    "author": "kriaiss",
+    "version": "1.7.0",
+    "description": "clean desktop clock with date, weather and <<now playing>>; nowplaying-cli required",
+    "dependencies": ["pyqt6"],
+    "settings": [
+        "toggle clock",
+        "toggle date",
+        "toggle weather",
+        "toggle now playing",
+        "toggle time format",
+        "change city",
+        "change color",
+        "change clock font",
+        "change other font"
+    ]
+}
