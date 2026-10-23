@@ -247,11 +247,26 @@ class Plugin:
             self.widget.deleteLater()
             self.widget = None
 
+    # just pause timers
     def handleSleep_(self, notification):
-        self._safe_destroy_widget()
+        if self.widget:
+            self.widget.timer.stop()
+            self.widget.music_timer.stop()
+            self.widget.weather_timer.stop()
+            if self.widget.weather_worker and self.widget.weather_worker.isRunning():
+                self.widget.weather_worker.stop()
+            if self.widget.music_worker and self.widget.music_worker.isRunning():
+                self.widget.music_worker.stop()
 
+    # restart timers
     def handleWake_(self, notification):
-        QTimer.singleShot(3000, self.hard_refresh_widget)
+        if self.widget:
+            self.widget.update_info()
+            self.widget.timer.start(1000)
+            self.widget.music_timer.start(5000)
+            self.widget.weather_timer.start(900000)
+        else:
+            self.check_widget_state()
 
     def check_widget_state(self):
         active = any([
